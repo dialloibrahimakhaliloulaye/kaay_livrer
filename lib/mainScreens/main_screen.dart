@@ -208,7 +208,7 @@ class _MainScreenState extends State<MainScreen>
               newGoogleMapController = controller;
 
               //for black theme google map
-              
+
             },
           )
         ],
