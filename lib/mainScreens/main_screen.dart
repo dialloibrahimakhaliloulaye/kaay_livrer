@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:kaay_livrer/authentication/login_screen.dart';
+import 'package:kaay_livrer/global/global.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -21,7 +23,8 @@ class _MainScreenState extends State<MainScreen>
           "Logout"
         ),
         onPressed: (){
-
+          fAuth.signOut();
+          Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
         },
       ),
     );

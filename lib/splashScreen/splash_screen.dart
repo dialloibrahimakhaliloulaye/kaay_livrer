@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kaay_livrer/authentication/login_screen.dart';
 
 import '../global/global.dart';
 import '../mainScreens/main_screen.dart';
@@ -23,16 +24,15 @@ class _MySplashScreenState extends State<MySplashScreen>
   {
     Timer(const Duration(seconds: 5), () async
     {
-      Navigator.push(context, MaterialPageRoute(builder: (c)=> MainScreen()));
-      // if(await fAuth.currentUser != null)
-      // {
-      //   currentFirebaseUser = fAuth.currentUser;
-      //   Navigator.push(context, MaterialPageRoute(builder: (c)=> MainScreen()));
-      // }
-      // else
-      // {
-      //   //Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
-      // }
+      if(await fAuth.currentUser != null)
+      {
+        currentFirebaseUser = fAuth.currentUser;
+        Navigator.push(context, MaterialPageRoute(builder: (c)=> MainScreen()));
+      }
+      else
+      {
+        Navigator.push(context, MaterialPageRoute(builder: (c)=> LoginScreen()));
+      }
     });
   }
 
