@@ -53,7 +53,7 @@ class DefaultFirebaseOptions {
     projectId: 'kaay-livrer-8171a',
     authDomain: 'kaay-livrer-8171a.firebaseapp.com',
     storageBucket: 'kaay-livrer-8171a.appspot.com',
-    //databaseURL: "https://kaay-livrer-8171a-default-rtdb.firebaseio.com",
+    databaseURL: "https://kaay-livrer-8171a-default-rtdb.firebaseio.com",
   );
 
   static const FirebaseOptions android = FirebaseOptions(

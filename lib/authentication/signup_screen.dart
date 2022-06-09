@@ -83,7 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen>
       DatabaseReference driversRef = FirebaseDatabase.instance.ref().child("users");
       driversRef.child(firebaseUser.uid).set(userMap);
 
-      //currentFirebaseUser = firebaseUser;
+      currentFirebaseUser = firebaseUser;
       Fluttertoast.showToast(msg: "Account has been Created.");
       Navigator.push(context, MaterialPageRoute(builder: (c)=> MySplashScreen()));
     }
