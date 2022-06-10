@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:kaay_livrer/authentication/login_screen.dart';
-import 'package:kaay_livrer/global/global.dart';
+import 'package:kaay_livrer/assistants/assistant_methods.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -190,6 +189,13 @@ class _MainScreenState extends State<MainScreen>
                       }
                     ]
                 ''');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    AssistantMethods.readCurrentOnlineUserInfo();
   }
 
   @override
