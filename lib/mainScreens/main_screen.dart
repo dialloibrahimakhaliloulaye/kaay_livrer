@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
+import 'package:kaay_livrer/global/global.dart';
+import 'package:kaay_livrer/widgets/my_drawer.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -195,13 +197,17 @@ class _MainScreenState extends State<MainScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    AssistantMethods.readCurrentOnlineUserInfo();
   }
 
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
+      appBar: AppBar(),
+      drawer: MyDrawer(
+        name: userModelCurrentInfo!.name,
+        email: userModelCurrentInfo!.email,
+      ),
       body: Stack(
         children: [
           GoogleMap(
