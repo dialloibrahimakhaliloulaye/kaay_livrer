@@ -19,8 +19,6 @@ class AssistantMethods
       if(snap.snapshot.value != null)
       {
         userModelCurrentInfo = UserModel.fromSnapshot(snap.snapshot);
-        print("name ="+userModelCurrentInfo!.name.toString());
-        print("name ="+userModelCurrentInfo!.email.toString());
       }
     });
   }

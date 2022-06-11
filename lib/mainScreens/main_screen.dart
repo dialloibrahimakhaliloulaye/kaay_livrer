@@ -26,6 +26,9 @@ class _MainScreenState extends State<MainScreen>
     zoom: 14.4746,
   );
 
+
+  GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
+
   blackThemeGoogleMap()
   {
     newGoogleMapController!.setMapStyle('''
@@ -203,13 +206,22 @@ class _MainScreenState extends State<MainScreen>
   Widget build(BuildContext context)
   {
     return Scaffold(
-      appBar: AppBar(),
-      drawer: MyDrawer(
-        name: userModelCurrentInfo!.name,
-        email: userModelCurrentInfo!.email,
+      key: sKey,
+      drawer: Container(
+        width: 265,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.black,
+          ),
+          child: MyDrawer(
+            name: userModelCurrentInfo!.name,
+            email: userModelCurrentInfo!.email,
+          ),
+        ),
       ),
       body: Stack(
         children: [
+
           GoogleMap(
             mapType: MapType.normal,
             myLocationEnabled: true,
@@ -222,7 +234,28 @@ class _MainScreenState extends State<MainScreen>
               //for black theme google map
 
             },
-          )
+          ),
+
+          //custom hamburger button for drawer
+          Positioned(
+            top: 36,
+            left: 22,
+            child: GestureDetector(
+              onTap: ()
+              {
+                sKey.currentState!.openDrawer();
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.grey,
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          ),
+
+
         ],
       ),
     );
