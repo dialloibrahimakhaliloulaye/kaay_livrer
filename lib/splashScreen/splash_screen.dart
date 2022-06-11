@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:kaay_livrer/assistants/assistant_methods.dart';
 import 'package:kaay_livrer/authentication/login_screen.dart';
 
 import '../global/global.dart';
@@ -22,6 +23,8 @@ class _MySplashScreenState extends State<MySplashScreen>
 
   startTimer()
   {
+    fAuth.currentUser != null ? AssistantMethods.readCurrentOnlineUserInfo() : null;
+
     Timer(const Duration(seconds: 5), () async
     {
       if(await fAuth.currentUser != null)

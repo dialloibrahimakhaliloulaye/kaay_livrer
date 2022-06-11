@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
+import 'package:kaay_livrer/global/global.dart';
+import 'package:kaay_livrer/widgets/my_drawer.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -23,6 +25,10 @@ class _MainScreenState extends State<MainScreen>
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
+
+
+  GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
+  double searchLocationContainerHeight = 220;
 
   blackThemeGoogleMap()
   {
@@ -195,15 +201,28 @@ class _MainScreenState extends State<MainScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
-    AssistantMethods.readCurrentOnlineUserInfo();
   }
 
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
+      key: sKey,
+      drawer: Container(
+        width: 265,
+        child: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor: Colors.black,
+          ),
+          child: MyDrawer(
+            name: userModelCurrentInfo!.name,
+            email: userModelCurrentInfo!.email,
+          ),
+        ),
+      ),
       body: Stack(
         children: [
+
           GoogleMap(
             mapType: MapType.normal,
             myLocationEnabled: true,
@@ -216,7 +235,131 @@ class _MainScreenState extends State<MainScreen>
               //for black theme google map
 
             },
-          )
+          ),
+
+          //custom hamburger button for drawer
+          Positioned(
+            top: 36,
+            left: 22,
+            child: GestureDetector(
+              onTap: ()
+              {
+                sKey.currentState!.openDrawer();
+              },
+              child: const CircleAvatar(
+                backgroundColor: Colors.grey,
+                child: Icon(
+                  Icons.menu,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+          ),
+
+          //ui for searching location
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: AnimatedSize(
+              curve: Curves.easeIn,
+              duration: const Duration(milliseconds: 120),
+              child: Container(
+                height: searchLocationContainerHeight,
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 18),
+                  child: Column(
+                    children: [
+                      //from
+                      Row(
+                        children: [
+                          const Icon(Icons.add_location_alt_outlined, color: Colors.grey,),
+                          const SizedBox(width: 12.0,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "From",
+                                style: TextStyle(color: Colors.grey, fontSize: 12),
+                              ),
+                              Text(
+                                "your current location",
+                                style: const TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 10.0),
+
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+
+                      const SizedBox(height: 16.0),
+
+                      //to
+                      Row(
+                        children: [
+                          const Icon(Icons.add_location_alt_outlined, color: Colors.grey,),
+                          const SizedBox(width: 12.0,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                "To",
+                                style: TextStyle(color: Colors.grey, fontSize: 12),
+                              ),
+                              Text(
+                                "Where to go?",
+                                style: const TextStyle(color: Colors.grey, fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 10.0),
+
+                      const Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+
+                      const SizedBox(height: 16.0),
+
+                      ElevatedButton(
+                        child: const Text(
+                          "Request a Ride",
+                        ),
+                        onPressed: ()
+                        {
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.green,
+                            textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
         ],
       ),
     );
