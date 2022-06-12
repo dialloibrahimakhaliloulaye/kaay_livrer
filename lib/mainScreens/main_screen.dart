@@ -35,6 +35,8 @@ class _MainScreenState extends State<MainScreen>
   Position? userCurrentPosition;
   var geolocator = Geolocator();
 
+  LocationPermission? _locationPermission;
+
 
   blackThemeGoogleMap()
   {
@@ -203,6 +205,16 @@ class _MainScreenState extends State<MainScreen>
                 ''');
   }
 
+  checkIfLocationPermissionAllowed() async
+  {
+    _locationPermission = await Geolocator.requestPermission();
+
+    if(_locationPermission == LocationPermission.denied)
+    {
+      _locationPermission = await Geolocator.requestPermission();
+    }
+  }
+
   locateUserPosition() async
   {
     Position cPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -219,6 +231,8 @@ class _MainScreenState extends State<MainScreen>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    checkIfLocationPermissionAllowed();
   }
 
   @override
