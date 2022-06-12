@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen>
   var geolocator = Geolocator();
 
   LocationPermission? _locationPermission;
-
+  double bottomPaddingOfMap = 0;
 
   blackThemeGoogleMap()
   {
@@ -269,6 +269,11 @@ class _MainScreenState extends State<MainScreen>
               //for black theme google map
 
               locateUserPosition();
+
+              setState(() {
+                bottomPaddingOfMap = 240;
+              });
+
             },
           ),
 
@@ -302,7 +307,7 @@ class _MainScreenState extends State<MainScreen>
               child: Container(
                 height: searchLocationContainerHeight,
                 decoration: const BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.black87,
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(20),
                     topLeft: Radius.circular(20),
