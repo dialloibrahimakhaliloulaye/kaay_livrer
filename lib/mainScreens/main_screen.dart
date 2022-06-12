@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
 import 'package:kaay_livrer/global/global.dart';
@@ -29,6 +30,11 @@ class _MainScreenState extends State<MainScreen>
 
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   double searchLocationContainerHeight = 220;
+
+
+  Position? userCurrentPosition;
+  var geolocator = Geolocator();
+
 
   blackThemeGoogleMap()
   {
@@ -197,6 +203,18 @@ class _MainScreenState extends State<MainScreen>
                 ''');
   }
 
+  locateUserPosition() async
+  {
+    Position cPosition = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    userCurrentPosition = cPosition;
+
+    LatLng latLngPosition = LatLng(userCurrentPosition!.latitude, userCurrentPosition!.longitude);
+
+    CameraPosition cameraPosition = CameraPosition(target: latLngPosition, zoom: 14);
+
+    newGoogleMapController!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -226,6 +244,8 @@ class _MainScreenState extends State<MainScreen>
           GoogleMap(
             mapType: MapType.normal,
             myLocationEnabled: true,
+            zoomGesturesEnabled: true,
+            zoomControlsEnabled: true,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller)
             {
@@ -234,6 +254,7 @@ class _MainScreenState extends State<MainScreen>
 
               //for black theme google map
 
+              locateUserPosition();
             },
           ),
 
