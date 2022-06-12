@@ -5,7 +5,9 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
 import 'package:kaay_livrer/global/global.dart';
+import 'package:kaay_livrer/infoHandler/app_info.dart';
 import 'package:kaay_livrer/widgets/my_drawer.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget
 {
@@ -333,7 +335,9 @@ class _MainScreenState extends State<MainScreen>
                                 style: TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                               Text(
-                                "your current location",
+                                Provider.of<AppInfo>(context).userPickUpLocation != null
+                                    ? (Provider.of<AppInfo>(context).userPickUpLocation!.locationName!).substring(0,24) + "..."
+                                    : "not getting address",
                                 style: const TextStyle(color: Colors.grey, fontSize: 14),
                               ),
                             ],
