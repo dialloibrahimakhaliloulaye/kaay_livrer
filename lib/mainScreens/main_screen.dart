@@ -10,6 +10,8 @@ import 'package:kaay_livrer/mainScreens/search_places_screen.dart';
 import 'package:kaay_livrer/widgets/my_drawer.dart';
 import 'package:provider/provider.dart';
 
+import '../widgets/progress_dialog.dart';
+
 class MainScreen extends StatefulWidget
 {
 
@@ -358,13 +360,14 @@ class _MainScreenState extends State<MainScreen>
 
                       //to
                       GestureDetector(
-                        onTap: ()
+                        onTap: () async
                         {
                           //go to search places screen
-                          var responseFromSearchScreen = Navigator.push(context, MaterialPageRoute(builder: (c)=> SearchPlacesScreen()));
+                          var responseFromSearchScreen = await Navigator.push(context, MaterialPageRoute(builder: (c)=> SearchPlacesScreen()));
                           if(responseFromSearchScreen == "obtainedDropoff")
                           {
                             // draw routes - draw polyline
+                            await drawPolyLineFromOriginToDestination();
                           }
                         },
                         child: Row(
@@ -425,4 +428,26 @@ class _MainScreenState extends State<MainScreen>
       ),
     );
   }
+
+  Future<void> drawPolyLineFromOriginToDestination() async
+  {
+    var originPosition = Provider.of<AppInfo>(context, listen: false).userPickUpLocation;
+    var destinationPosition = Provider.of<AppInfo>(context, listen: false).userDropOffLocation;
+
+    var originLatLng = LatLng(originPosition!.locationLatitude!, originPosition.locationLongitude!);
+    var destinationLatLng = LatLng(destinationPosition!.locationLatitude!, destinationPosition.locationLongitude!);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => ProgressDialog(message: "Please wait...",),
+    );
+
+    var directionDetailsInfo = await AssistantMethods.obtainOriginToDestinationDirectionDetails(originLatLng, destinationLatLng);
+
+    Navigator.pop(context);
+
+    print("These are points = ");
+    print(directionDetailsInfo!.e_points);
+  }
+
 }

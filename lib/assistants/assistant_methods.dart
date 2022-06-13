@@ -10,6 +10,7 @@ import 'package:kaay_livrer/global/global.dart';
 import 'package:provider/provider.dart';
 
 import '../global/map_key.dart';
+import '../models/direction_details_info.dart';
 
 
 class AssistantMethods
@@ -51,5 +52,28 @@ class AssistantMethods
         userModelCurrentInfo = UserModel.fromSnapshot(snap.snapshot);
       }
     });
+  }
+
+  static Future<DirectionDetailsInfo?> obtainOriginToDestinationDirectionDetails(LatLng origionPosition, LatLng destinationPosition) async
+  {
+    String urlOriginToDestinationDirectionDetails = "https://maps.googleapis.com/maps/api/directions/json?origin=${origionPosition.latitude},${origionPosition.longitude}&destination=${destinationPosition.latitude},${destinationPosition.longitude}&key=$mapKey";
+
+    var responseDirectionApi = await RequestAssistant.receiveRequest(urlOriginToDestinationDirectionDetails);
+
+    if(responseDirectionApi == "Error Occurred, Failed. No Response.")
+    {
+      return null;
+    }
+
+    DirectionDetailsInfo directionDetailsInfo = DirectionDetailsInfo();
+    directionDetailsInfo.e_points = responseDirectionApi["routes"][0]["overview_polyline"]["points"];
+
+    directionDetailsInfo.distance_text = responseDirectionApi["routes"][0]["legs"][0]["distance"]["text"];
+    directionDetailsInfo.distance_value = responseDirectionApi["routes"][0]["legs"][0]["distance"]["value"];
+
+    directionDetailsInfo.duration_text = responseDirectionApi["routes"][0]["legs"][0]["duration"]["text"];
+    directionDetailsInfo.duration_value = responseDirectionApi["routes"][0]["legs"][0]["duration"]["value"];
+
+    return directionDetailsInfo;
   }
 }
