@@ -3,12 +3,18 @@ import 'package:kaay_livrer/models/directions.dart';
 
 class AppInfo extends ChangeNotifier
 {
-  Directions? userPickUpLocation;
+  Directions? userPickUpLocation, userDropOffLocation;
 
 
   void updatePickUpLocationAddress(Directions userPickUpAddress)
   {
     userPickUpLocation = userPickUpAddress;
+    notifyListeners();
+  }
+
+  void updateDropOffLocationAddress(Directions dropOffAddress)
+  {
+    userDropOffLocation = dropOffAddress;
     notifyListeners();
   }
 }
