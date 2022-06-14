@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -49,6 +50,10 @@ class _MainScreenState extends State<MainScreen>
 
   Set<Marker> markersSet = {};
   Set<Circle> circlesSet = {};
+  String userName = "your Name";
+  String userMail = "your Email";
+
+  bool openNavigationDrawer = true;
 
   blackThemeGoogleMap()
   {
@@ -240,6 +245,10 @@ class _MainScreenState extends State<MainScreen>
 
     String humanReadableAddress = await AssistantMethods.searchAddressForGeographicCoOrdinates(userCurrentPosition!, context);
     print("this is your address = " + humanReadableAddress);
+
+    userName = userModelCurrentInfo!.name!;
+    userMail = userModelCurrentInfo!.email!;
+
   }
 
   @override
@@ -262,8 +271,8 @@ class _MainScreenState extends State<MainScreen>
             canvasColor: Colors.black,
           ),
           child: MyDrawer(
-            name: userModelCurrentInfo!.name,
-            email: userModelCurrentInfo!.email,
+            name: userName,
+            email: userMail,
           ),
         ),
       ),
@@ -302,12 +311,19 @@ class _MainScreenState extends State<MainScreen>
             child: GestureDetector(
               onTap: ()
               {
-                sKey.currentState!.openDrawer();
+              if(openNavigationDrawer)
+              {
+              sKey.currentState!.openDrawer();
+              }
+              else {
+                //restart-refresh-minimize app progmatically
+                SystemNavigator.pop();
+              }
               },
-              child: const CircleAvatar(
+              child: CircleAvatar(
                 backgroundColor: Colors.grey,
                 child: Icon(
-                  Icons.menu,
+                  openNavigationDrawer ? Icons.menu : Icons.close,
                   color: Colors.black54,
                 ),
               ),
@@ -376,6 +392,10 @@ class _MainScreenState extends State<MainScreen>
                           var responseFromSearchScreen = await Navigator.push(context, MaterialPageRoute(builder: (c)=> SearchPlacesScreen()));
                           if(responseFromSearchScreen == "obtainedDropoff")
                           {
+                            setState(() {
+                              openNavigationDrawer = false;
+                            });
+
                             // draw routes - draw polyline
                             await drawPolyLineFromOriginToDestination();
                           }
