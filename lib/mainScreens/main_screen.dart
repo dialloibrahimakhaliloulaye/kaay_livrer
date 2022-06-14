@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
@@ -14,6 +15,7 @@ import 'package:kaay_livrer/widgets/my_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../assistants/geofire_assistant.dart';
+import '../main.dart';
 import '../models/active_nearby_available_drivers.dart';
 import '../widgets/progress_dialog.dart';
 
@@ -59,6 +61,8 @@ class _MainScreenState extends State<MainScreen>
   bool openNavigationDrawer = true;
   bool activeNearbyDriverKeysLoaded = false;
   BitmapDescriptor? activeNearbyIcon;
+
+  List<ActiveNearbyAvailableDrivers> onlineNearByAvailableDriversList = [];
 
   blackThemeGoogleMap()
   {
@@ -265,6 +269,40 @@ class _MainScreenState extends State<MainScreen>
     checkIfLocationPermissionAllowed();
   }
 
+  saveRideRequestInformation()
+  {
+    //1. save the RideRequest Information
+
+    onlineNearByAvailableDriversList = GeoFireAssistant.activeNearbyAvailableDriversList;
+    searchNearestOnlineDrivers();
+  }
+
+  searchNearestOnlineDrivers() async
+  {
+    if(onlineNearByAvailableDriversList.length == 0)
+    {
+      //cancel/delete the RideRequest information
+
+      setState(() {
+        polyLineSet.clear();
+        markersSet.clear();
+        circlesSet.clear();
+        pLineCoOrdinatesList.clear();
+      });
+
+      Fluttertoast.showToast(msg: "No Online Nearest Driver Available. Search Again after some time, Restarting App Now.");
+
+      Future.delayed(const Duration(milliseconds: 4000), ()
+      {
+        MyApp.restarApp(context);
+      });
+
+      return;
+
+
+    }
+  }
+
   @override
   Widget build(BuildContext context)
   {
@@ -446,7 +484,14 @@ class _MainScreenState extends State<MainScreen>
                         ),
                         onPressed: ()
                         {
-
+                          if(Provider.of<AppInfo>(context, listen: false).userDropOffLocation != null)
+                          {
+                            saveRideRequestInformation();
+                          }
+                          else
+                          {
+                            Fluttertoast.showToast(msg: "Please select destination location");
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                             primary: Colors.green,
