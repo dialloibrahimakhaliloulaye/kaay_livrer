@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -11,6 +12,7 @@ import 'package:kaay_livrer/assistants/assistant_methods.dart';
 import 'package:kaay_livrer/global/global.dart';
 import 'package:kaay_livrer/infoHandler/app_info.dart';
 import 'package:kaay_livrer/mainScreens/search_places_screen.dart';
+import 'package:kaay_livrer/mainScreens/select_nearest_active_driver_screen.dart';
 import 'package:kaay_livrer/widgets/my_drawer.dart';
 import 'package:provider/provider.dart';
 
@@ -279,6 +281,7 @@ class _MainScreenState extends State<MainScreen>
 
   searchNearestOnlineDrivers() async
   {
+    //no active driver available
     if(onlineNearByAvailableDriversList.length == 0)
     {
       //cancel/delete the RideRequest information
@@ -300,6 +303,26 @@ class _MainScreenState extends State<MainScreen>
       return;
 
 
+    }
+
+    //no active driver available
+    await retrieveOnlineDriversInformation(onlineNearByAvailableDriversList);
+
+    Navigator.push(context, MaterialPageRoute(builder: (c)=> SelectNearestActiveDriversScreen()));
+  }
+
+  retrieveOnlineDriversInformation(List onlineNearestDriversList) async
+  {
+    DatabaseReference ref = FirebaseDatabase.instance.ref().child("drivers");
+    for(int i=0; i<onlineNearestDriversList.length; i++)
+    {
+      await ref.child(onlineNearestDriversList[i].driverId.toString())
+          .once()
+          .then((dataSnapshot)
+      {
+        var driverKeyInfo = dataSnapshot.snapshot.value;
+        dList.add(driverKeyInfo);
+      });
     }
   }
 
