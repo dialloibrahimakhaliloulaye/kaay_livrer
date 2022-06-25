@@ -66,6 +66,12 @@ class _MainScreenState extends State<MainScreen>
 
   List<ActiveNearbyAvailableDrivers> onlineNearByAvailableDriversList = [];
 
+
+
+
+
+
+
   blackThemeGoogleMap()
   {
     newGoogleMapController!.setMapStyle('''
@@ -548,6 +554,9 @@ class _MainScreenState extends State<MainScreen>
     );
 
     var directionDetailsInfo = await AssistantMethods.obtainOriginToDestinationDirectionDetails(originLatLng, destinationLatLng);
+    setState(() {
+      tripDirectionDetailsInfo = directionDetailsInfo;
+    });
 
     Navigator.pop(context);
 

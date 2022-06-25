@@ -90,14 +90,14 @@ class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDr
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "3",
-                      style: TextStyle(
+                      tripDirectionDetailsInfo != null ? tripDirectionDetailsInfo!.duration_text! : "",
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 2,),
                     Text(
-                      "13 km",
+                      tripDirectionDetailsInfo != null ? tripDirectionDetailsInfo!.distance_text! : "",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black54,
