@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,6 +45,7 @@ class _MainScreenState extends State<MainScreen>
 
   GlobalKey<ScaffoldState> sKey = GlobalKey<ScaffoldState>();
   double searchLocationContainerHeight = 220;
+  double waitingResponseFromDriverContainerHeight = 0;
 
 
   Position? userCurrentPosition;
@@ -365,6 +367,40 @@ class _MainScreenState extends State<MainScreen>
         {
           //send notification to that specific driver
           sendNotificationToDriverNow(chosenDriverId!);
+
+          //Display Waiting Response UI from a Driver
+          showWaitingResponseFromDriverUI();
+
+          //Response from a Driver
+          FirebaseDatabase.instance.ref()
+              .child("drivers")
+              .child(chosenDriverId!)
+              .child("newRideStatus")
+              .onValue.listen((eventSnapshot)
+          {
+            //1. driver has cancel the rideRequest :: Push Notification
+            // (newRideStatus = idle)
+            if(eventSnapshot.snapshot.value == "idle")
+            {
+              Fluttertoast.showToast(msg: "The driver has cancelled your request. Please choose another driver.");
+
+              Future.delayed(const Duration(milliseconds: 3000), ()
+              {
+                Fluttertoast.showToast(msg: "Please Restart App Now.");
+
+                SystemNavigator.pop();
+              });
+            }
+
+            //2. driver has accept the rideRequest :: Push Notification
+            // (newRideStatus = accepted)
+            if(eventSnapshot.snapshot.value == "accepted")
+            {
+              //design and display ui for displaying assigned driver information
+              //showUIForAssignedDriverInfo();
+            }
+          });
+
         }
         else
         {
@@ -372,7 +408,15 @@ class _MainScreenState extends State<MainScreen>
         }
       });
     }
+  }
 
+  showWaitingResponseFromDriverUI()
+  {
+    setState(() {
+      waitingResponseFromDriverContainerHeight = 0;
+      searchLocationContainerHeight = 0;
+      //assignedDriverInfoContainerHeight = 240;
+    });
   }
 
   sendNotificationToDriverNow(String chosenDriverId)
@@ -624,6 +668,44 @@ class _MainScreenState extends State<MainScreen>
                         ),
                       ),
 
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          //ui for waiting response from driver
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: waitingResponseFromDriverContainerHeight,
+              decoration: const BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Center(
+                  child: AnimatedTextKit(
+                    animatedTexts: [
+                      FadeAnimatedText(
+                        'Waiting for Response\nfrom Driver',
+                        duration: const Duration(seconds: 6),
+                        textAlign: TextAlign.center,
+                        textStyle: const TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      ScaleAnimatedText(
+                        'Please wait...',
+                        duration: const Duration(seconds: 10),
+                        textAlign: TextAlign.center,
+                        textStyle: const TextStyle(fontSize: 32.0, color: Colors.white, fontFamily: 'Canterbury'),
+                      ),
                     ],
                   ),
                 ),
