@@ -70,178 +70,172 @@ class _MainScreenState extends State<MainScreen>
   DatabaseReference? referenceRideRequest;
 
 
-
-
-
-
-
-
-  blackThemeGoogleMap()
-  {
-    newGoogleMapController!.setMapStyle('''
-                    [
-                      {
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#242f3e"
-                          }
-                        ]
-                      },
-                      {
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#746855"
-                          }
-                        ]
-                      },
-                      {
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                          {
-                            "color": "#242f3e"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "administrative.locality",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi.park",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#263c3f"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi.park",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#6b9a76"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#38414e"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                          {
-                            "color": "#212a37"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#9ca5b3"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#746855"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                          {
-                            "color": "#1f2835"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#f3d19c"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "transit",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#2f3948"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "transit.station",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#17263c"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#515c6d"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                          {
-                            "color": "#17263c"
-                          }
-                        ]
-                      }
-                    ]
-                ''');
-  }
+  // blackThemeGoogleMap()
+  // {
+  //   newGoogleMapController!.setMapStyle('''
+  //                   [
+  //                     {
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#242f3e"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#746855"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "elementType": "labels.text.stroke",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#242f3e"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "administrative.locality",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#d59563"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "poi",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#d59563"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "poi.park",
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#263c3f"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "poi.park",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#6b9a76"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road",
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#38414e"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road",
+  //                       "elementType": "geometry.stroke",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#212a37"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#9ca5b3"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road.highway",
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#746855"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road.highway",
+  //                       "elementType": "geometry.stroke",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#1f2835"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "road.highway",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#f3d19c"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "transit",
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#2f3948"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "transit.station",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#d59563"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "water",
+  //                       "elementType": "geometry",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#17263c"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "water",
+  //                       "elementType": "labels.text.fill",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#515c6d"
+  //                         }
+  //                       ]
+  //                     },
+  //                     {
+  //                       "featureType": "water",
+  //                       "elementType": "labels.text.stroke",
+  //                       "stylers": [
+  //                         {
+  //                           "color": "#17263c"
+  //                         }
+  //                       ]
+  //                     }
+  //                   ]
+  //               ''');
+  // }
 
   checkIfLocationPermissionAllowed() async
   {
@@ -299,8 +293,8 @@ class _MainScreenState extends State<MainScreen>
     Map destinationLocationMap =
     {
       //"key": value,
-      "latitude": destinationLocation!.locationLatitude.toString(),
-      "longitude": destinationLocation!.locationLongitude.toString(),
+      "latitude": destinationLocation?.locationLatitude.toString(),
+      "longitude": destinationLocation?.locationLongitude.toString(),
     };
 
     Map userInformationMap =
@@ -311,7 +305,7 @@ class _MainScreenState extends State<MainScreen>
       "userName": userModelCurrentInfo!.name,
       "userPhone": userModelCurrentInfo!.phone,
       "originAddress": originLocation.locationName,
-      "destinationAddress": destinationLocation.locationName,
+      "destinationAddress": destinationLocation?.locationName,
       "driverId": "waiting",
 
     };
