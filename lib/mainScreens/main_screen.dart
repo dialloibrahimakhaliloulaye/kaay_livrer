@@ -306,8 +306,8 @@ class _MainScreenState extends State<MainScreen>
     Map destinationLocationMap =
     {
       //"key": value,
-      "latitude": destinationLocation!.locationLatitude.toString(),
-      "longitude": destinationLocation!.locationLongitude.toString(),
+      "latitude": destinationLocation?.locationLatitude.toString(),
+      "longitude": destinationLocation?.locationLongitude.toString(),
     };
 
     Map userInformationMap =
@@ -318,7 +318,7 @@ class _MainScreenState extends State<MainScreen>
       "userName": userModelCurrentInfo!.name,
       "userPhone": userModelCurrentInfo!.phone,
       "originAddress": originLocation.locationName,
-      "destinationAddress": destinationLocation.locationName,
+      "destinationAddress": destinationLocation?.locationName,
       "driverId": "waiting",
 
     };
