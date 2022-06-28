@@ -278,6 +278,8 @@ class _MainScreenState extends State<MainScreen>
     userMail = userModelCurrentInfo!.email!;
     initializeGeoFireListener();
 
+    AssistantMethods.readTripsKeysForOnlineUser(context);
+
   }
 
   @override
