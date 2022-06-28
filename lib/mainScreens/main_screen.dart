@@ -12,6 +12,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:kaay_livrer/assistants/assistant_methods.dart';
 import 'package:kaay_livrer/global/global.dart';
 import 'package:kaay_livrer/infoHandler/app_info.dart';
+import 'package:kaay_livrer/mainScreens/rate_driver_screen.dart';
 import 'package:kaay_livrer/mainScreens/search_places_screen.dart';
 import 'package:kaay_livrer/mainScreens/select_nearest_active_driver_screen.dart';
 import 'package:kaay_livrer/widgets/my_drawer.dart';
@@ -20,6 +21,7 @@ import 'package:provider/provider.dart';
 import '../assistants/geofire_assistant.dart';
 import '../main.dart';
 import '../models/active_nearby_available_drivers.dart';
+import '../widgets/pay_fare_amount_dialog.dart';
 import '../widgets/progress_dialog.dart';
 
 class MainScreen extends StatefulWidget
@@ -323,7 +325,7 @@ class _MainScreenState extends State<MainScreen>
 
     referenceRideRequest!.set(userInformationMap);
 
-    tripRideRequestInfoStreamSubscription = referenceRideRequest!.onValue.listen((eventSnap)
+    tripRideRequestInfoStreamSubscription = referenceRideRequest!.onValue.listen((eventSnap) async
     {
       if(eventSnap.snapshot.value == null)
       {
@@ -382,9 +384,40 @@ class _MainScreenState extends State<MainScreen>
         {
           updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng);
         }
+        //status = ended
+        if(userRideRequestStatus == "ended") {
+          if ((eventSnap.snapshot.value as Map)["fareAmount"] != null) {
+            double fareAmount = double.parse(
+                (eventSnap.snapshot.value as Map)["fareAmount"].toString());
+
+            var response = await showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext c) =>
+                  PayFareAmountDialog(
+                    fareAmount: fareAmount,
+                  ),
+            );
+
+            if (response == "cashPayed") {
+              //user can rate the driver now
+              if ((eventSnap.snapshot.value as Map)["driverId"] != null) {
+                String assignedDriverId = (eventSnap.snapshot
+                    .value as Map)["driverId"].toString();
+
+                Navigator.push(context, MaterialPageRoute(builder: (c) =>
+                    RateDriverScreen(
+                      assignedDriverId: assignedDriverId,
+                    )));
+
+                referenceRideRequest!.onDisconnect();
+                tripRideRequestInfoStreamSubscription!.cancel();
+              }
+            }
+          }
+        }
       }
     });
-
 
     onlineNearByAvailableDriversList = GeoFireAssistant.activeNearbyAvailableDriversList;
     searchNearestOnlineDrivers();
@@ -548,7 +581,6 @@ class _MainScreenState extends State<MainScreen>
     setState(() {
       waitingResponseFromDriverContainerHeight = 220;
       searchLocationContainerHeight = 0;
-      //assignedDriverInfoContainerHeight = 240;
     });
   }
 
@@ -558,7 +590,7 @@ class _MainScreenState extends State<MainScreen>
     // Drivers Parent node for that specific choosen driver
     FirebaseDatabase.instance.ref()
         .child("drivers")
-        .child(chosenDriverId!)
+        .child(chosenDriverId)
         .child("newRideStatus")
         .set(referenceRideRequest!.key);
 
