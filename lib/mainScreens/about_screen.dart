@@ -38,7 +38,7 @@ class _AboutScreenState extends State<AboutScreen>
 
               //company name
               const Text(
-                "Uber & inDriver Clone",
+                "KAAY LIVRE",
                 style: TextStyle(
                   fontSize: 28,
                   color: Colors.white54,
