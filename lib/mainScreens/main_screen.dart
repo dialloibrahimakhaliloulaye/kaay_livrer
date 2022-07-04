@@ -62,8 +62,8 @@ class _MainScreenState extends State<MainScreen>
 
   Set<Marker> markersSet = {};
   Set<Circle> circlesSet = {};
-  String userName = "your Name";
-  String userMail = "your Email";
+  String userName = "votre nom";
+  String userMail = "votre e-mail";
 
   bool openNavigationDrawer = true;
   bool activeNearbyDriverKeysLoaded = false;
@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen>
 
   DatabaseReference? referenceRideRequest;
 
-  String driverRideStatus = "Driver is Coming";
+  String driverRideStatus = "Le livreur arrive";
   StreamSubscription<DatabaseEvent>? tripRideRequestInfoStreamSubscription;
   String userRideRequestStatus="";
   bool requestPositionInfo = true;
@@ -272,7 +272,7 @@ class _MainScreenState extends State<MainScreen>
     newGoogleMapController!.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
     String humanReadableAddress = await AssistantMethods.searchAddressForGeographicCoOrdinates(userCurrentPosition!, context);
-    print("this is your address = " + humanReadableAddress);
+    print("c'est votre adresse = " + humanReadableAddress);
 
     userName = userModelCurrentInfo!.name!;
     userMail = userModelCurrentInfo!.email!;
@@ -368,26 +368,26 @@ class _MainScreenState extends State<MainScreen>
         LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
 
         //status = accepted
-        if(userRideRequestStatus == "accepted")
+        if(userRideRequestStatus == "accepté")
         {
           updateArrivalTimeToUserPickupLocation(driverCurrentPositionLatLng);
         }
 
         //status = arrived
-        if(userRideRequestStatus == "arrived")
+        if(userRideRequestStatus == "arrivé")
         {
           setState(() {
-            driverRideStatus = "Driver has Arrived";
+            driverRideStatus = "Le livreur est arrivé";
           });
         }
 
         ////status = ontrip
-        if(userRideRequestStatus == "ontrip")
+        if(userRideRequestStatus == "en route")
         {
           updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng);
         }
         //status = ended
-        if(userRideRequestStatus == "ended") {
+        if(userRideRequestStatus == "terminé") {
           if ((eventSnap.snapshot.value as Map)["fareAmount"] != null) {
             double fareAmount = double.parse(
                 (eventSnap.snapshot.value as Map)["fareAmount"].toString());
@@ -401,7 +401,7 @@ class _MainScreenState extends State<MainScreen>
                   ),
             );
 
-            if (response == "cashPayed") {
+            if (response == "payé cash") {
               //user can rate the driver now
               if ((eventSnap.snapshot.value as Map)["driverId"] != null) {
                 String assignedDriverId = (eventSnap.snapshot
@@ -497,7 +497,7 @@ class _MainScreenState extends State<MainScreen>
         pLineCoOrdinatesList.clear();
       });
 
-      Fluttertoast.showToast(msg: "No Online Nearest Driver Available. Search Again after some time, Restarting App Now.");
+      Fluttertoast.showToast(msg: "Aucun livreur le plus proche en ligne disponible. Rechercher à nouveau après un certain temps, Redémarrer l'application maintenant.");
 
       Future.delayed(const Duration(milliseconds: 4000), ()
       {
@@ -541,11 +541,11 @@ class _MainScreenState extends State<MainScreen>
             // (newRideStatus = idle)
             if(eventSnapshot.snapshot.value == "idle")
             {
-              Fluttertoast.showToast(msg: "The driver has cancelled your request. Please choose another driver.");
+              Fluttertoast.showToast(msg: "Le livreur a annulé votre demande. Veuillez choisir un autre livreur.");
 
               Future.delayed(const Duration(milliseconds: 3000), ()
               {
-                Fluttertoast.showToast(msg: "Please Restart App Now.");
+                Fluttertoast.showToast(msg: "Veuillez redémarrer l'application maintenant.");
 
                 SystemNavigator.pop();
               });
@@ -553,7 +553,7 @@ class _MainScreenState extends State<MainScreen>
 
             //2. driver has accept the rideRequest :: Push Notification
             // (newRideStatus = accepted)
-            if(eventSnapshot.snapshot.value == "accepted")
+            if(eventSnapshot.snapshot.value == "accepté")
             {
               //design and display ui for displaying assigned driver information
               showUIForAssignedDriverInfo();
@@ -563,7 +563,7 @@ class _MainScreenState extends State<MainScreen>
         }
         else
         {
-          Fluttertoast.showToast(msg: "This driver do not exist. Try again.");
+          Fluttertoast.showToast(msg: "Ce livreur n'existe pas. Réessayer.");
         }
       });
     }
@@ -613,11 +613,11 @@ class _MainScreenState extends State<MainScreen>
           context,
         );
 
-        Fluttertoast.showToast(msg: "Notification sent Successfully.");
+        Fluttertoast.showToast(msg: "Notification envoyée avec succès.");
       }
       else
       {
-        Fluttertoast.showToast(msg: "Please choose another driver.");
+        Fluttertoast.showToast(msg: "Veuillez choisir un autre conducteur.");
         return;
       }
     });
@@ -741,7 +741,7 @@ class _MainScreenState extends State<MainScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "From",
+                                "De",
                                 style: TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                               Text(
@@ -789,13 +789,13 @@ class _MainScreenState extends State<MainScreen>
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Text(
-                                  "To",
+                                  "À",
                                   style: TextStyle(color: Colors.grey, fontSize: 12),
                                 ),
                                 Text(
                                   Provider.of<AppInfo>(context).userDropOffLocation != null
                                       ? Provider.of<AppInfo>(context).userDropOffLocation!.locationName!
-                                      : "Where to go?",
+                                      : "Où aller?",
                                   style: const TextStyle(color: Colors.grey, fontSize: 14),
                                 ),
                               ],
@@ -826,7 +826,7 @@ class _MainScreenState extends State<MainScreen>
                           }
                           else
                           {
-                            Fluttertoast.showToast(msg: "Please select destination location");
+                            Fluttertoast.showToast(msg: "Veuillez sélectionner le lieu de destination");
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -868,7 +868,7 @@ class _MainScreenState extends State<MainScreen>
                         textStyle: const TextStyle(fontSize: 30.0, color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                       ScaleAnimatedText(
-                        'Please wait...',
+                        "S'il vous plaît, attendez...",
                         duration: const Duration(seconds: 10),
                         textAlign: TextAlign.center,
                         textStyle: const TextStyle(fontSize: 32.0, color: Colors.white, fontFamily: 'Canterbury'),
@@ -983,7 +983,7 @@ class _MainScreenState extends State<MainScreen>
                           size: 22,
                         ),
                         label: const Text(
-                          "Call Driver",
+                          "Appelez le livreur",
                           style: TextStyle(
                             color: Colors.black54,
                             fontWeight: FontWeight.bold,
@@ -1011,7 +1011,7 @@ class _MainScreenState extends State<MainScreen>
 
     showDialog(
       context: context,
-      builder: (BuildContext context) => ProgressDialog(message: "Please wait...",),
+      builder: (BuildContext context) => ProgressDialog(message: "S'il vous plaît, attendez...",),
     );
 
     var directionDetailsInfo = await AssistantMethods.obtainOriginToDestinationDirectionDetails(originLatLng, destinationLatLng);
@@ -1021,7 +1021,7 @@ class _MainScreenState extends State<MainScreen>
 
     Navigator.pop(context);
 
-    print("These are points = ");
+    print("Ce sont des pointes = ");
     print(directionDetailsInfo!.e_points);
 
     PolylinePoints pPoints = PolylinePoints();

@@ -34,7 +34,7 @@ class _PlacePredictionTileDesignState extends State<PlacePredictionTileDesign> {
 
     Navigator.pop(context);
 
-    if(responseApi == "Error Occurred, Failed. No Response.")
+    if(responseApi == "Une erreur s'est produite, a échoué. Pas de réponse.")
     {
       return;
     }

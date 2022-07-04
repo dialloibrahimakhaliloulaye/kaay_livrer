@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                 primary: Colors.white54,
               ),
               child: const Text(
-                "Close",
+                "Fermer",
                 style: TextStyle(color: Colors.white),
               ),
             )

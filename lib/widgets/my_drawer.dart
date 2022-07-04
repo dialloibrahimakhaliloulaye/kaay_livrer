@@ -80,7 +80,7 @@ class _MyDrawerState extends State<MyDrawer>
             child: const ListTile(
               leading: Icon(Icons.history, color: Colors.white54,),
               title: Text(
-                "History",
+                "Historique",
                 style: TextStyle(
                     color: Colors.white54
                 ),
@@ -96,7 +96,7 @@ class _MyDrawerState extends State<MyDrawer>
             child: const ListTile(
               leading: Icon(Icons.person, color: Colors.white54,),
               title: Text(
-                "Visit Profile",
+                "Visiter le profil",
                 style: TextStyle(
                     color: Colors.white54
                 ),
@@ -112,7 +112,7 @@ class _MyDrawerState extends State<MyDrawer>
             child: const ListTile(
               leading: Icon(Icons.info, color: Colors.white54,),
               title: Text(
-                "About",
+                "À propos",
                 style: TextStyle(
                     color: Colors.white54
                 ),
@@ -129,7 +129,7 @@ class _MyDrawerState extends State<MyDrawer>
             child: const ListTile(
               leading: Icon(Icons.logout, color: Colors.white54,),
               title: Text(
-                "Sign Out",
+                "Se déconnecter",
                 style: TextStyle(
                     color: Colors.white54
                 ),

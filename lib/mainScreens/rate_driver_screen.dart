@@ -46,7 +46,7 @@ class _RateDriverScreenState extends State<RateDriverScreen>
               const SizedBox(height: 22.0,),
 
               const Text(
-                "Rate Trip Experience",
+                "Évaluer l'expérience de livraison",
                 style: TextStyle(
                   fontSize: 22,
                   letterSpacing: 2,
@@ -75,25 +75,25 @@ class _RateDriverScreenState extends State<RateDriverScreen>
                   if(countRatingStars == 1)
                   {
                     setState(() {
-                      titleStarsRating = "Very Bad";
+                      titleStarsRating = "Très mauvais";
                     });
                   }
                   if(countRatingStars == 2)
                   {
                     setState(() {
-                      titleStarsRating = "Bad";
+                      titleStarsRating = "Mauvais";
                     });
                   }
                   if(countRatingStars == 3)
                   {
                     setState(() {
-                      titleStarsRating = "Good";
+                      titleStarsRating = "Bien";
                     });
                   }
                   if(countRatingStars == 4)
                   {
                     setState(() {
-                      titleStarsRating = "Very Good";
+                      titleStarsRating = "Très bien";
                     });
                   }
                   if(countRatingStars == 5)
@@ -143,7 +143,7 @@ class _RateDriverScreenState extends State<RateDriverScreen>
                         SystemNavigator.pop();
                       }
 
-                      Fluttertoast.showToast(msg: "Please Restart App Now");
+                      Fluttertoast.showToast(msg: "Veuillez redémarrer l'application maintenant");
                     });
                   },
                   style: ElevatedButton.styleFrom(
@@ -151,7 +151,7 @@ class _RateDriverScreenState extends State<RateDriverScreen>
                     padding: EdgeInsets.symmetric(horizontal: 74),
                   ),
                   child: const Text(
-                    "Submit",
+                    "Envoyer",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

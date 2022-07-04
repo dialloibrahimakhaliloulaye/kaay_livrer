@@ -27,7 +27,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen>
 
       var responseAutoCompleteSearch = await RequestAssistant.receiveRequest(urlAutoCompleteSearch);
 
-      if(responseAutoCompleteSearch == "Error Occurred, Failed. No Response.")
+      if(responseAutoCompleteSearch == "Une erreur s'est produite, a échoué. Pas de réponse.")
       {
         return;
       }
@@ -93,7 +93,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen>
 
                       const Center(
                         child: Text(
-                          "Search & Set DropOff Location",
+                          "Rechercher et définir le lieu de dépôt",
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.grey,
@@ -125,7 +125,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen>
                               findPlaceAutoCompleteSearch(valueTyped);
                             },
                             decoration: const InputDecoration(
-                              hintText: "search here...",
+                              hintText: "Cherche ici...",
                               fillColor: Colors.white54,
                               filled: true,
                               border: InputBorder.none,

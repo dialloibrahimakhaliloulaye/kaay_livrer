@@ -39,7 +39,7 @@ class _PayFareAmountDialogState extends State<PayFareAmountDialog>
             const SizedBox(height: 20,),
 
             Text(
-              "Fare Amount".toUpperCase(),
+              "Montant du tarif".toUpperCase(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.grey,
@@ -70,7 +70,7 @@ class _PayFareAmountDialogState extends State<PayFareAmountDialog>
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
-                "This is the total trip fare amount, Please Pay it to the driver.",
+                "Il s'agit du montant total du livraison, veuillez le payer au livreur.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
@@ -97,7 +97,7 @@ class _PayFareAmountDialogState extends State<PayFareAmountDialog>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text(
-                      "Pay Cash",
+                      "Payer Cash",
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.white,

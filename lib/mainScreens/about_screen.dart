@@ -52,9 +52,9 @@ class _AboutScreenState extends State<AboutScreen>
 
               //about you & your company - write some info
               const Text(
-                "This app has been developed by KAAY COM, "
-                    "This is the world number 1 ride sharing app. Available for all. "
-                    "1M+ people already use this app.",
+                "Cette application a été développée par KAAY COM, "
+                    "C'est l'application de livraison numéro 1 au Sénégal. Disponible pour tous."
+                    "1M+ de personnes utilisent déjà cette application.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -67,9 +67,9 @@ class _AboutScreenState extends State<AboutScreen>
               ),
 
               const Text(
-                "This app has been developed by KAAY COM, "
-                    "This is the world number 1 ride sharing app. Available for all. "
-                    "1M+ people already use this app.",
+                "Cette application a été développée par KAAY COM,, "
+                    "C'est l'application de livraison numéro 1 au Sénégal. Disponible pour tous. "
+                    "1M+ de personnes utilisent déjà cette application.",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
@@ -91,7 +91,7 @@ class _AboutScreenState extends State<AboutScreen>
                   primary: Colors.white54,
                 ),
                 child: const Text(
-                  "Close",
+                  "Fermer",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

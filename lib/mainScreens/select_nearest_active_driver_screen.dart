@@ -54,7 +54,7 @@ class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDr
       appBar: AppBar(
         backgroundColor: Colors.white54,
         title: const Text(
-          "Nearest Online Drivers",
+          "Livreur en ligne les plus proches",
           style: TextStyle(
             fontSize: 18,
           ),
@@ -67,7 +67,7 @@ class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDr
           {
             //delete/remove the ride request from database
             widget.referenceRideRequest!.remove();
-            Fluttertoast.showToast(msg: "You have canceled the ride request.");
+            Fluttertoast.showToast(msg: "Vous avez annulé la demande de livraison.");
 
             SystemNavigator.pop();
           },
