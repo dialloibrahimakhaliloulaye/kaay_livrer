@@ -56,7 +56,7 @@ class _MySplashScreenState extends State<MySplashScreen>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
-              Image.asset("images/logo.png"),
+              Image.asset("images/logo.jpeg"),
 
               const SizedBox(height: 10,),
 
