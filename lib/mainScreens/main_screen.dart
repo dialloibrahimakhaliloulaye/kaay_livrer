@@ -600,7 +600,7 @@ class _MainScreenState extends State<MainScreen>
     FirebaseDatabase.instance.ref()
         .child("drivers")
         .child(chosenDriverId)
-        .child("token").once().then((snap)
+        .child("Token").once().then((snap)
     {
       if(snap.snapshot.value != null)
       {
