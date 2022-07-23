@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen>
         barrierDismissible: false,
         builder: (BuildContext c)
         {
-          return ProgressDialog(message: "Traitement en cours, veuillez patienter...",);
+          return ProgressDialog(message: "Login en cours, veuillez patienter...",);
         }
     );
 
@@ -76,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen>
         }
         else
         {
-          Fluttertoast.showToast(msg: "Aucun enregistrement n'existe avec cet e-mail.");
+          Fluttertoast.showToast(msg: "Aucun enregistrement n'existe avec cet e-mail / password.");
           fAuth.signOut();
           Navigator.push(context, MaterialPageRoute(builder: (c)=> const MySplashScreen()));
         }
@@ -109,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen>
               const SizedBox(height: 10,),
 
               const Text(
-                "Connectez-vous en tant qu'utilisateur",
+                "Connectez-vous",
                 style: TextStyle(
                   fontSize: 26,
                   color: Colors.grey,
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen>
 
               TextButton(
                 child: const Text(
-                  "Vous n'avez pas de compte? Inscrivez-vous ici",
+                  "Vous n'avez pas de compte? S'inscrire",
                   style: TextStyle(color: Colors.grey),
                 ),
                 onPressed: ()

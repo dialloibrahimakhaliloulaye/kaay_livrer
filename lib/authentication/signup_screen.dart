@@ -90,7 +90,7 @@ class _SignUpScreenState extends State<SignUpScreen>
     else
     {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "Le compte a été créé.");
+      Fluttertoast.showToast(msg: "Error !!!.");
     }
   }
 
@@ -111,10 +111,10 @@ class _SignUpScreenState extends State<SignUpScreen>
                 child: Image.asset("images/logo.jpeg"),
               ),
 
-              const SizedBox(height: 10,),
+              const SizedBox(height: 5,),
 
               const Text(
-                "S'inscrire en tant qu'utilisateur",
+                "Inscrivez vous ici",
                 style: TextStyle(
                   fontSize: 26,
                   color: Colors.grey,
@@ -247,8 +247,8 @@ class _SignUpScreenState extends State<SignUpScreen>
 
               TextButton(
                 child: const Text(
-                  "Vous avez déjà un compte? Connectez-vous ici",
-                  style: TextStyle(color: Colors.grey),
+                  "Vous avez déjà un compte? Se connecter",
+                  style: TextStyle(color: Colors.orange),
                 ),
                 onPressed: ()
                 {

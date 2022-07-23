@@ -79,177 +79,6 @@ class _MainScreenState extends State<MainScreen>
   bool requestPositionInfo = true;
 
 
-
-
-
-
-  blackThemeGoogleMap()
-  {
-    newGoogleMapController!.setMapStyle('''
-                    [
-                      {
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#242f3e"
-                          }
-                        ]
-                      },
-                      {
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#746855"
-                          }
-                        ]
-                      },
-                      {
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                          {
-                            "color": "#242f3e"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "administrative.locality",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi.park",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#263c3f"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "poi.park",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#6b9a76"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#38414e"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                          {
-                            "color": "#212a37"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#9ca5b3"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#746855"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "geometry.stroke",
-                        "stylers": [
-                          {
-                            "color": "#1f2835"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "road.highway",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#f3d19c"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "transit",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#2f3948"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "transit.station",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#d59563"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "geometry",
-                        "stylers": [
-                          {
-                            "color": "#17263c"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                          {
-                            "color": "#515c6d"
-                          }
-                        ]
-                      },
-                      {
-                        "featureType": "water",
-                        "elementType": "labels.text.stroke",
-                        "stylers": [
-                          {
-                            "color": "#17263c"
-                          }
-                        ]
-                      }
-                    ]
-                ''');
-  }
-
   checkIfLocationPermissionAllowed() async
   {
     _locationPermission = await Geolocator.requestPermission();
@@ -368,13 +197,13 @@ class _MainScreenState extends State<MainScreen>
         LatLng driverCurrentPositionLatLng = LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
 
         //status = accepted
-        if(userRideRequestStatus == "accepté")
+        if(userRideRequestStatus == "accepted")
         {
           updateArrivalTimeToUserPickupLocation(driverCurrentPositionLatLng);
         }
 
         //status = arrived
-        if(userRideRequestStatus == "arrivé")
+        if(userRideRequestStatus == "arrived")
         {
           setState(() {
             driverRideStatus = "Le livreur est arrivé";
@@ -382,12 +211,12 @@ class _MainScreenState extends State<MainScreen>
         }
 
         ////status = ontrip
-        if(userRideRequestStatus == "en route")
+        if(userRideRequestStatus == "ontrip")
         {
           updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng);
         }
         //status = ended
-        if(userRideRequestStatus == "terminé") {
+        if(userRideRequestStatus == "ended") {
           if ((eventSnap.snapshot.value as Map)["fareAmount"] != null) {
             double fareAmount = double.parse(
                 (eventSnap.snapshot.value as Map)["fareAmount"].toString());
@@ -401,7 +230,7 @@ class _MainScreenState extends State<MainScreen>
                   ),
             );
 
-            if (response == "payé cash") {
+            if (response == "cashPayed") {
               //user can rate the driver now
               if ((eventSnap.snapshot.value as Map)["driverId"] != null) {
                 String assignedDriverId = (eventSnap.snapshot
@@ -452,7 +281,7 @@ class _MainScreenState extends State<MainScreen>
   }
 
   updateReachingTimeToUserDropOffLocation(driverCurrentPositionLatLng) async
-  {
+    {
     if(requestPositionInfo == true)
     {
       requestPositionInfo = false;
@@ -497,7 +326,7 @@ class _MainScreenState extends State<MainScreen>
         pLineCoOrdinatesList.clear();
       });
 
-      Fluttertoast.showToast(msg: "Aucun livreur le plus proche en ligne disponible. Rechercher à nouveau après un certain temps, Redémarrer l'application maintenant.");
+      Fluttertoast.showToast(msg: "Aucun livreur le plus proche en ligne disponible. Reéssayer plus tard.");
 
       Future.delayed(const Duration(milliseconds: 4000), ()
       {
@@ -553,7 +382,7 @@ class _MainScreenState extends State<MainScreen>
 
             //2. driver has accept the rideRequest :: Push Notification
             // (newRideStatus = accepted)
-            if(eventSnapshot.snapshot.value == "accepté")
+            if(eventSnapshot.snapshot.value == "accepted")
             {
               //design and display ui for displaying assigned driver information
               showUIForAssignedDriverInfo();
@@ -816,7 +645,7 @@ class _MainScreenState extends State<MainScreen>
 
                       ElevatedButton(
                         child: const Text(
-                          "Request a Ride",
+                          "Envoyer ",
                         ),
                         onPressed: ()
                         {
