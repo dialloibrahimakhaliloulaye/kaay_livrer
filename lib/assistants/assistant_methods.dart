@@ -84,13 +84,19 @@ class AssistantMethods
   }
   static double calculateFareAmountFromOriginToDestination(DirectionDetailsInfo directionDetailsInfo)
   {
-    double timeTraveledFareAmountPerMinute = (directionDetailsInfo.duration_value! / 60) * 0.1;
-    double distanceTraveledFareAmountPerKilometer = (directionDetailsInfo.duration_value! / 1000) * 0.1;
+    double distanceTraveledFareAmountPerKilometer;
+    // double timeTraveledFareAmountPerMinute = (directionDetailsInfo.duration_value! / 60) * 0.1;
+    if(directionDetailsInfo.distance_value!/1000 <= 1){
+      distanceTraveledFareAmountPerKilometer = 500;
+    }
+    else{
+      distanceTraveledFareAmountPerKilometer = (((directionDetailsInfo.distance_value! / 1000) - 1) * 250)+500;
+    }
 
     //USD
-    double totalFareAmount = timeTraveledFareAmountPerMinute + distanceTraveledFareAmountPerKilometer;
+    // double totalFareAmount = timeTraveledFareAmountPerMinute + distanceTraveledFareAmountPerKilometer;
 
-    return double.parse(totalFareAmount.toStringAsFixed(1));
+    return double.parse(distanceTraveledFareAmountPerKilometer.toStringAsFixed(1));
   }
 
   static sendNotificationToDriverNow(String deviceRegistrationToken, String userRideRequestId, context) async

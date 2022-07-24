@@ -129,7 +129,7 @@ class _SelectNearestActiveDriversScreenState extends State<SelectNearestActiveDr
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "\$ " + getFareAmountAccordingToVehicleType(index),
+                         getFareAmountAccordingToVehicleType(index) + " \FCFA ",
                         style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         ),
