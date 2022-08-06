@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="kaay_livrer"
+        android:label="Kaay_livré"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
