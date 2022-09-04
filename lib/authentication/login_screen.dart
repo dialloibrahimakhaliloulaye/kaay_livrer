@@ -24,6 +24,7 @@ class _LoginScreenState extends State<LoginScreen>
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
 
+  bool isHiddenpassword = true;
 
   validateForm()
   {
@@ -126,6 +127,7 @@ class _LoginScreenState extends State<LoginScreen>
                 decoration: const InputDecoration(
                   labelText: "Email",
                   hintText: "Email",
+                  prefixIcon: Icon(Icons.email, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -146,13 +148,23 @@ class _LoginScreenState extends State<LoginScreen>
               TextField(
                 controller: passwordTextEditingController,
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                obscureText: isHiddenpassword,
                 style: const TextStyle(
                     color: Colors.grey
                 ),
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: "Mot de passe",
                   hintText: "Mot de passe",
+                  prefixIcon: Icon(Icons.lock, color: Colors.white,),
+                  suffixIcon: GestureDetector(
+                    onTap: (){
+                      setState(() {
+                        isHiddenpassword = !isHiddenpassword;
+                      });
+                    },
+                    child: isHiddenpassword ? Icon(Icons.visibility_off, color: Colors.white,):
+                    Icon(Icons.visibility, color: Colors.white,),
+                  ),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),

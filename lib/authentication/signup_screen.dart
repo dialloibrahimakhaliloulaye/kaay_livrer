@@ -130,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                 decoration: const InputDecoration(
                   labelText: "Nom",
                   hintText: "Nom",
+                  prefixIcon: Icon(Icons.account_circle_sharp, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -156,6 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                 decoration: const InputDecoration(
                   labelText: "Email",
                   hintText: "Email",
+                  prefixIcon: Icon(Icons.email, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -182,6 +184,7 @@ class _SignUpScreenState extends State<SignUpScreen>
                 decoration: const InputDecoration(
                   labelText: "Téléphone",
                   hintText: "Téléphone",
+                  prefixIcon: Icon(Icons.call_end_sharp, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
@@ -202,13 +205,14 @@ class _SignUpScreenState extends State<SignUpScreen>
               TextField(
                 controller: passwordTextEditingController,
                 keyboardType: TextInputType.text,
-                obscureText: true,
+                // obscureText: true,
                 style: const TextStyle(
                     color: Colors.grey
                 ),
                 decoration: const InputDecoration(
                   labelText: "Mot de passe",
                   hintText: "Mot de passe",
+                  prefixIcon: Icon(Icons.lock, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
                   ),
