@@ -128,8 +128,8 @@ class _SignUpScreenState extends State<SignUpScreen>
                   color: Colors.grey
                 ),
                 decoration: const InputDecoration(
-                  labelText: "Nom",
-                  hintText: "Nom",
+                  labelText: "Nom complet",
+                  hintText: "Nom complet",
                   prefixIcon: Icon(Icons.account_circle_sharp, color: Colors.white,),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.grey),
