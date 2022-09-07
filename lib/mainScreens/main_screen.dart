@@ -570,13 +570,13 @@ class _MainScreenState extends State<MainScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "De",
+                                "Echec",
                                 style: TextStyle(color: Colors.grey, fontSize: 12),
                               ),
                               Text(
                                 Provider.of<AppInfo>(context).userPickUpLocation != null
                                     ? (Provider.of<AppInfo>(context).userPickUpLocation!.locationName!).substring(0,24) + "..."
-                                    : "not getting address",
+                                    : "Recuperation de votre adresse",
                                 style: const TextStyle(color: Colors.grey, fontSize: 14),
                               ),
                             ],
