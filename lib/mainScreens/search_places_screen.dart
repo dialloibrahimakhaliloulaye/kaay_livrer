@@ -93,7 +93,7 @@ class _SearchPlacesScreenState extends State<SearchPlacesScreen>
 
                       const Center(
                         child: Text(
-                          "Rechercher et définir le lieu de dépôt",
+                          "Rechercher et définir la detination",
                           style: TextStyle(
                             fontSize: 18.0,
                             color: Colors.grey,

@@ -570,13 +570,14 @@ class _MainScreenState extends State<MainScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Echec",
+                                "Votre position",
                                 style: TextStyle(color: Colors.grey, fontSize: 12),
                               ),
+                              const SizedBox(height: 10.0,),
                               Text(
                                 Provider.of<AppInfo>(context).userPickUpLocation != null
                                     ? (Provider.of<AppInfo>(context).userPickUpLocation!.locationName!).substring(0,24) + "..."
-                                    : "Recuperation de votre adresse",
+                                    : "Echec récuperation de votre adresse",
                                 style: const TextStyle(color: Colors.grey, fontSize: 14),
                               ),
                             ],
@@ -621,10 +622,11 @@ class _MainScreenState extends State<MainScreen>
                                   "À",
                                   style: TextStyle(color: Colors.grey, fontSize: 12),
                                 ),
+                                const SizedBox(height: 10.0,),
                                 Text(
                                   Provider.of<AppInfo>(context).userDropOffLocation != null
                                       ? Provider.of<AppInfo>(context).userDropOffLocation!.locationName!
-                                      : "Où aller?",
+                                      : "Votre destination",
                                   style: const TextStyle(color: Colors.grey, fontSize: 14),
                                 ),
                               ],

@@ -25,7 +25,7 @@ class _MySplashScreenState extends State<MySplashScreen>
   {
     fAuth.currentUser != null ? AssistantMethods.readCurrentOnlineUserInfo() : null;
 
-    Timer(const Duration(seconds: 5), () async
+    Timer(const Duration(seconds: 2), () async
     {
       if(await fAuth.currentUser != null)
       {
